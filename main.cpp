@@ -28,8 +28,9 @@ string const MONTHS[12] = {"January", "February", "March", "April", "May", "Jun"
 
 class realStateProperty;
 
-bool validateDate(mdDate);
-void validateDateRange(realStateProperty* rsp, dateRange *dr);
+bool isValidMonth(int);
+bool isValidDate(mdDate);
+bool isValidDateRange(realStateProperty* rsp, dateRange *dr);
 bool isValidAddress(string);
 string getFormattedDate(mdDate);
 mdDate getDate(string, char);
@@ -103,18 +104,26 @@ void realStateProperty :: book() {
     dateRange dr;
 
     do {
-        cout << "Enter the start month and day: ";
-        cin >> dr.start.month >> dr.start.day;
-    } while(!validateDate(dr.start));
+        do {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Enter the start month and day: ";
+            cin >> dr.start.month >> dr.start.day;
+        } while(!isValidDate(dr.start));
 
-    do {
-        cout << "Enter the end month and day: ";
-        cin >> dr.end.month >> dr.end.day;
-    } while(!validateDate(dr.end));
+        do {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Enter the end month and day: ";
+            cin >> dr.end.month >> dr.end.day;
+        } while(!isValidDate(dr.end));
 
-    validateDateRange(this, &dr);
+    } while(!isValidDateRange(this, &dr));
+
     this->updateBookedDates(&dr);
+    
     updateProperties(this);
+    
     cout << "Booked!" << endl;
 }
 
@@ -126,8 +135,14 @@ void realStateProperty :: updateBookedDates(dateRange * dr) {
 
 void realStateProperty :: showMonth() {
     int month;
-    cout << "Enter the month number:\n";
-    cin >> month;
+    do {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Enter the month number: ";
+        cin >> month;
+    } while(!isValidMonth(month));
+
+    
     vector<int> bookedDates;
     for(dateRange d : this->bookedDates){
         if (d.start.month == month) {
@@ -185,7 +200,7 @@ int main() {
                             complete = true;
                             break;
                         default:
-                            cout << "Invalid option";
+                            cout << "Invalid option\n";
                     }
                 }
                 cin.ignore();
@@ -197,50 +212,52 @@ int main() {
     return 0;
 }
 
-bool validateDate(mdDate d) {
-    try {
-        if (d.month > 12 || d.month < 1) {
-            throw ('M');
-        }
-        if (d.day > 31 || d.day < 1) {
-            throw('D');
-        }
-        return true;
-    } catch (char e) {
-        if (e == 'M') {
-            cout << "Invalid month number" << endl;
-        } else if (e == 'D') {
-            cout << "Invalid day number" << endl;
-        }
+bool isValidMonth(int month) {
+    if (month > 12 || month < 1) {
+        cout << "Invalid month number" << endl;
         return false;
     }
+    return true;
 }
 
-void validateDateRange(realStateProperty* rsp, dateRange *dr) {
-    try {
-        vector <string> dates;
-        for (dateRange bdr: rsp->bookedDates) {
-            for (int mon = bdr.start.month; mon <= bdr.end.month; mon++ ) {
-                for (int day = bdr.start.day; day <= bdr.end.day; day++) {
-                    dates.push_back(to_string(mon) + "/" + to_string(day));
-                }
-            }
-        }
+bool isValidDate(mdDate d) {
+    if (d.month > 12 || d.month < 1) {
+        cout << "Invalid month number" << endl;
+        return false;
+    }
+    if (d.day > 31 || d.day < 1) {
+        cout << "Invalid day number" << endl;
+        return false;
+    }
+    return true;   
+}
 
-        for (int mon = dr->start.month; mon <= dr->end.month; mon++ ) {
-            for (int day = dr->start.day; day <= dr->end.day; day++) {
-                string date = to_string(mon) + "/" + to_string(day);
-                if (find(dates.begin(), dates.end(), date) != dates.end()) {
-                    throw('R');
-                    break;   
-                }
+bool isValidDateRange(realStateProperty* rsp, dateRange *dr) {
+    bool valid =  true;
+    if (dr->start.month > dr->end.month || dr->start.day > dr->end.day) {
+        cout << "Invalid date range" << endl;
+        return false;
+    }
+    vector <string> dates;
+    for (dateRange bdr: rsp->bookedDates) {
+        for (int mon = bdr.start.month; mon <= bdr.end.month; mon++ ) {
+            for (int day = bdr.start.day; day <= bdr.end.day; day++) {
+                dates.push_back(to_string(mon) + "/" + to_string(day));
             }
-        }        
-    } catch (char e) {
-        if (e == 'R') {
-            cout << "Date range has dates that are already booked!" << endl;
         }
     }
+
+    for (int mon = dr->start.month; mon <= dr->end.month; mon++ ) {
+        for (int day = dr->start.day; day <= dr->end.day; day++) {
+            string date = to_string(mon) + "/" + to_string(day);
+            if (find(dates.begin(), dates.end(), date) != dates.end()) {
+                valid = false;
+                cout << "Date range has dates that are already booked!" << endl;
+                break;   
+            }
+        }
+    }
+    return valid;
 }
 
 bool isValidAddress(string address) {
