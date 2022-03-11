@@ -67,7 +67,7 @@ class realStateProperty {
         cout << "tenants: " << tenants << endl;
         for(dateRange d : this->bookedDates){
             cout << "date = " << getFormattedDate(d.start) << " - " << getFormattedDate(d.end) << endl;getFormattedDate(d.start);
-        }  
+        }
     }
 };
 
@@ -121,9 +121,9 @@ void realStateProperty :: book() {
     } while(!isValidDateRange(this, &dr));
 
     this->updateBookedDates(&dr);
-    
+
     updateProperties(this);
-    
+
     cout << "Booked!" << endl;
 }
 
@@ -142,7 +142,6 @@ void realStateProperty :: showMonth() {
         cin >> month;
     } while(!isValidMonth(month));
 
-    
     vector<int> bookedDates;
     for(dateRange d : this->bookedDates){
         if (d.start.month == month) {
@@ -159,13 +158,6 @@ void realStateProperty :: showMonth() {
 
 int main() {
 
-    // test statements
-    // realStateProperty rp1("Argus Street 12311");
-    // dateRange dr = {mdDate{1,1}, mdDate{1,1}};
-    // rp1.updateBookedDates(&dr);
-    // updateProperties(&rp1);
-    // generateReport(&rp1);
-    // return 0;
     char option;
     string inputAdd;
     bool exited = false;
@@ -173,12 +165,12 @@ int main() {
         while(!exited) {
 
             cout << "Enter the address of the property you want to book or exit to exit: ";
-            
+
             getline(cin, inputAdd);
+
             if (inputAdd == "exit") {
                 exited = true;
-            }
-            if (!isValidAddress(inputAdd)) {
+            } else if (!isValidAddress(inputAdd)) {
                 cout << "Address not found" << endl;
             } else {
                 bool complete = false;
@@ -229,7 +221,7 @@ bool isValidDate(mdDate d) {
         cout << "Invalid day number" << endl;
         return false;
     }
-    return true;   
+    return true;
 }
 
 bool isValidDateRange(realStateProperty* rsp, dateRange *dr) {
@@ -332,12 +324,12 @@ void generateReport(realStateProperty *rsp) {
         for(int day = startDay; day <= endDay; day++){
             bookedDates.push_back(day);
         }
-        
+
         int nextMon = rsp->bookedDates[i+1].start.month;
-        
+
         if (mon != nextMon) {
             vector <string> calenderData = getMonthCalenderData(mon, &bookedDates, monthlyRevenue, rate);
-            
+
             outfile << MONTHS[mon-1] << ": " << monthlyRevenue << endl;
 
             for (string str: calenderData){
@@ -359,7 +351,7 @@ void generateReport(realStateProperty *rsp) {
 vector <string> getMonthCalenderData(int month, vector<int> * bookedDates, double &monthlyRevenue, double rate) {
     int dayCounter = 1;
     int startDay = 0; //(month - 1) * 3 % 7; // dynamic start Day of given month
-    
+
     vector <string> calender;
     for (int week = 1; week < 7; week++) {
         for (int day = 1; day <= 7; day++) {
@@ -446,7 +438,7 @@ void updateProperties(realStateProperty *rsp) {
         if (&rs != &properties.back()) {
             fout << endl;
         }
-        
+
     }
     fout.close();
 }
