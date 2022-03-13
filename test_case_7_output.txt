@@ -1,0 +1,13 @@
+Enter the address of the property you want to book or exit to exit:
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+Enter the start month and day:
+Enter the end month and day:
+Date range has dates that are already booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+Enter the address of the property you want to book or exit to exit:

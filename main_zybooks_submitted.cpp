@@ -383,16 +383,16 @@ void generateReport() {
         }
         
         outfile << "Total: $" << totalYearlyRevenue << endl;
-        if (&temprsp != &properties.back()) {
+        // if (&temprsp != &properties.back()) {
             outfile << endl;
-        }
+        // }
     }
     outfile.close();
 }
 
 vector <string> getMonthCalenderData(int month, vector<int> * bookedDates) {
     int dayCounter = 1;
-    int startDay = (month - 1) * 3 % 7; // dynamic start Day of given month
+    int startDay = 0; //(month - 1) * 3 % 7; // dynamic start Day of given month
     vector <string> calender;
     for (int week = 1; week < 7; week++) {
         for (int day = 1; day <= 7; day++) {

@@ -1,0 +1,86 @@
+Enter the address of the property you want to book or exit to exit:
+Valentine Lane 21422
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+1 1
+Enter the end month and day:
+1 1
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+5 6
+Enter the end month and day:
+5 6
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+5 7
+Enter the end month and day:
+5 7
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+12 31
+Enter the end month and day:
+12 31
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+q
+Enter the address of the property you want to book or exit to exit:
+Agnus Dr. 12311
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+2 1
+Enter the end month and day:
+2 31
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+5 3
+Enter the end month and day:
+6 3
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+2
+Enter the start month and day:
+6 15
+Enter the end month and day:
+7 15
+Booked!
+Enter an option:
+1. Show the calendar of the property on a given month
+2. Book a period of time for a given property
+q. Quit
+q
+Enter the address of the property you want to book or exit to exit:
+exit
